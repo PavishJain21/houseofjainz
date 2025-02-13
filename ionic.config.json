@@ -1,0 +1,7 @@
+{
+  "name": "houseofjain-z",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
