@@ -1,0 +1,57 @@
+.auth-card {
+    max-width: 600px;
+    margin: 2rem auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .auth-card ion-card-header {
+    padding-top: 2rem;
+  }
+  
+  .auth-card h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(45deg, #3880ff, #2dd36f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .animate-item {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  ion-item {
+    --padding-start: 0;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+  }
+  
+  ion-button {
+    --border-radius: 8px;
+    margin-top: 1rem;
+  }
+
+  .login-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  ion-icon {
+    color: var(--ion-color-medium);
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .auth-card, .animate-item {
+      animation: none;
+      opacity: 1;
+    }
+  }

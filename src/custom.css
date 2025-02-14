@@ -1,0 +1,49 @@
+.custom-ion-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Add this to PanchangCalendar.css or App.css */
+.react-calendar {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  ul li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .custom-router-outlet {
+    height: auto;
+    overflow: auto;
+  }
+
+  .content {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .instagram-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }

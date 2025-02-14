@@ -1,0 +1,117 @@
+.panchang-container {
+    padding: 1rem;
+    min-height: 100vh;
+  }
+  
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    opacity: 0;
+  }
+  
+  .page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+    background: linear-gradient(45deg, #FF725E, #FF9B8C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .subtitle {
+    color: #666;
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  .lotus-symbol {
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    opacity: 0.8;
+  }
+  
+  .search-container {
+    margin: 1rem 0;
+  }
+  
+  .custom-searchbar {
+    --background: white;
+    --border-radius: 12px;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .month-segment {
+    background: white;
+    border-radius: 12px;
+    margin: 1rem 0;
+    --background-checked: #FF725E;
+    --color-checked: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .festivals-container {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: 1rem 0;
+  }
+  
+  .festival-card {
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: white;
+    transition: transform 0.3s ease;
+  }
+  
+  .festival-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .festival-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .festival-name {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
+  .festival-name h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .festival-icon {
+    color: #FF725E;
+    font-size: 1.5rem;
+  }
+  
+  ion-icon {
+    color: #FF725E;
+  }
+  
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 1.5rem;
+    }
+    
+    .festivals-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .festival-card,
+    .lotus-symbol,
+    .page-header {
+      animation: none !important;
+      transition: none !important;
+    }
+  }

@@ -1,0 +1,122 @@
+.login-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .lotus-container {
+    margin-bottom: 2rem;
+  }
+  
+  .auth-card {
+    max-width: 400px;
+    width: 90%;
+    margin: 1rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    background: white;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .auth-card h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(45deg, #FF725E, #FF9B8C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .welcome-text {
+    color: #666;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .animate-item {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  ion-item {
+    --padding-start: 0;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    --highlight-height: 2px;
+    --highlight-color: #FF725E;
+  }
+  
+  .forgot-password {
+    text-align: right;
+    margin-top: 0.5rem;
+  }
+  
+  .login-button {
+    --background: #FF725E;
+    --background-hover: #ff8471;
+    margin-top: 1rem;
+    height: 48px;
+  }
+  
+  .social-login {
+    margin-top: 2rem;
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .divider span {
+    padding: 0 1rem;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .social-button {
+    --border-color: #ddd;
+    --border-width: 1px;
+    --border-style: solid;
+    --padding-start: 2rem;
+    --padding-end: 2rem;
+  }
+  
+  .signup-prompt {
+    text-align: center;
+    margin-top: 2rem;
+    color: #666;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .auth-card,
+    .animate-item,
+    .lotus-icon {
+      animation: none;
+      opacity: 1;
+    }
+  }
+  
+  /* Animation for form focus */
+  ion-item.item-has-focus {
+    transition: transform 0.2s ease;
+    transform: scale(1.02);
+  }
