@@ -1,0 +1,27 @@
+.splash-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+.splash-logo {
+  text-align: center;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.splash-logo h1 {
+  font-size: 2.5rem;
+  color: #6B73FF;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

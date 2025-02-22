@@ -187,9 +187,14 @@
   .post-card {
     margin-bottom: 0.5rem;
     border-radius: 0;
+    margin-top: 0.5rem;
   }
   
   .action-icon {
     font-size: 1.3rem;
   }
+}
+
+.feed-main-content {
+  top: 4rem !important;
 }

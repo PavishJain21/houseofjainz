@@ -80,7 +80,7 @@ const panchangData = {
   ]
 };
 
-const PanchangPage = () => {
+const Calendar = () => {
   const [selectedMonth, setSelectedMonth] = useState('January');
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(panchangData);
@@ -123,16 +123,6 @@ const PanchangPage = () => {
           <div className="wave"></div>
         </div>
 
-        <nav className="navbar">
-          <div className="logo">House of Jain-Z</div>
-          <div className="nav-links">
-            <a href="#" className="nav-link">Home</a>
-            <a href="#" className="nav-link">Community</a>
-            <a href="#" className="nav-link">Events</a>
-            <a href="#" className="nav-link">Resources</a>
-          </div>
-        </nav>
-
         <div className="panchang-container">
           {/* Header Section */}
           <div className="page-header">
@@ -148,14 +138,14 @@ const PanchangPage = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="search-container">
+          {/* <div className="search-container">
             <IonSearchbar
               value={searchText}
               onIonChange={handleSearch}
               placeholder="त्योहार खोजें..."
               className="custom-searchbar"
             />
-          </div>
+          </div> */}
 
           {/* Month Selector */}
           <IonSegment 
@@ -195,4 +185,4 @@ const PanchangPage = () => {
   );
 };
 
-export default PanchangPage;
+export default Calendar;

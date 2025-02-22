@@ -35,16 +35,15 @@ import './theme/variables.css';
 import AppRouter from './AppRouter';
 import Header from './pages/Header/Header';
 import FooterPage from './pages/footer/footer';
+import Menu from './pages/Menu/Menu';
 
 setupIonicReact();
 
 const App: React.FC = () => (
-  <IonApp className='custom-ion-page' >
-    <Header />
-    <div className="content">
-    <AppRouter />
+  <IonApp className='custom-ion-page'>
+    <div className="content" >
+      <AppRouter />
     </div>
-     <FooterPage />
   </IonApp>
 );
 

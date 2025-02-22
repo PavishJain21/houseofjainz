@@ -154,14 +154,6 @@ const ProfileEdit: React.FC = () => {
 
     return (
         <IonPage>
-            <IonHeader className='profile-header'>
-                <IonToolbar>
-                    <IonTitle>Edit Profile</IonTitle>
-                           
-                 
-                </IonToolbar>
-            </IonHeader>
-
             <IonContent className="ion-padding">
                 <style>
                     {`
@@ -204,7 +196,7 @@ const ProfileEdit: React.FC = () => {
             }
           `}
                 </style>
-
+            
                 <form onSubmit={handleSubmit} className="list-container">
                     <IonList>
                         {[

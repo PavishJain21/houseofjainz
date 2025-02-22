@@ -29,11 +29,11 @@
 }
 
 .ion-item ion-icon {
-  color: #3880ff;
+  color:fff
 }
 
 .ion-button {
   margin: 1rem;
-  --background: #3880ff;
+  --background: linear-gradient(45deg, var(--primary), var(--secondary))
   --border-radius: 10px;
 }

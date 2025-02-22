@@ -124,13 +124,41 @@ const FeedPage = () => {
     }, 1000);
   };
 
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file); // Append the file to FormData
+  
+    // Sending the file to the backend
+    await fetch('http://127.0.0.1:8000/api/upload-file/', {
+      method: 'POST',
+      body: formData, // FormData automatically sets the correct Content-Type
+    })
+    .then((data:any) => {
+      console.log(data);
+      alert(data);
+      if (data) {
+        console.log("Filepath")
+        console.log(data);
+        // Update the UI with the file path if the upload was successful
+        setNewPost({ ...newPost, image: data.data });
+      } else {
+        console.error('Error uploading file:', data);
+      }
+    })
+    .catch((error) => {
+      console.error('Error saving file:', error);
+    });
+  };
+  
+
   const handlePostSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     const formData = new FormData();
     formData.append('username', newPost.username);
     formData.append('userAvatar', newPost.userAvatar);
-    formData.append('image', newPost.image);
+    formData.append('image', newPost.image); // Send the image path
     formData.append('likes', newPost.likes.toString());
     formData.append('caption', newPost.caption);
     formData.append('comments', newPost.comments.toString());
@@ -180,12 +208,8 @@ const FeedPage = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>House of Jain-Z</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
+ 
+      <IonContent fullscreen className='feed-main-content' >
         <IonGrid className="instagram-wall">
           <IonRow>
             <IonCol size="12" sizeMd="8" offsetMd="2">
@@ -193,22 +217,14 @@ const FeedPage = () => {
                 <IonCardContent>
                   <form onSubmit={handlePostSubmit} className="create-post-form">
                     <IonTextarea
-                      placeholder="What's on your mind?"
+                      placeholder="Spread jainisam with your post..."
                       value={newPost.caption}
                       onIonChange={(e) => setNewPost({ ...newPost, caption: e.detail.value })}
                       required
                       className="create-post-textarea"
                     />
                     <div className="file-input-container">
-                      <IonButton fill="clear" className="file-input-button">
-                        <IonIcon icon={imageOutline} />
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onIonChange={(e) => setNewPost({ ...newPost, image: e.target.files[0] })}
-                          className="file-input"
-                        />
-                      </IonButton>
+                      <input type="file" onChange={handleFileChange} />
                     </div>
                     <IonButton fill="clear" type="submit" disabled={isSubmitting} className="create-post-button">
                       {isSubmitting ? 'Posting...' : 'Post'}

@@ -1,0 +1,11 @@
+::ng-deep .toolbar-container {
+  background: linear-gradient(45deg, var(--primary), var(--secondary)) !important;
+}
+
+.toolbar-background {
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+}
+
+:host .toolbar-background {
+  background: linear-gradient(45deg, var(--primary), var(--secondary)) !important;
+}

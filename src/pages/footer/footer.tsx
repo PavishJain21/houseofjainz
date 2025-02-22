@@ -18,21 +18,27 @@ import {
   personCircleOutline,
   logInOutline,
   logOutOutline,
+  locateOutline,
+  location,
+  locationOutline,
 } from 'ionicons/icons';
 import { createAnimation } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import './footer.css';
-
+import Calendar, { PanchangPage } from '../Calender';
 const FooterPage: React.FC = () => {
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const history = useHistory();
-
+  const token = localStorage.getItem('authToken');
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    setIsLoggedIn(!!token);
-  }, []);
-
+     if(token){
+      setIsLoggedIn(true);
+     }else{
+      setIsLoggedIn(false);
+     }
+  }, [token]);
+   
   const handleMouseEnter = (tabId: string) => {
     setHoveredTab(tabId);
     const element = document.querySelector(`#${tabId}-btn`);
@@ -68,76 +74,84 @@ const FooterPage: React.FC = () => {
     setIsLoggedIn(false);
     history.push('/login');
   };
-
+  {}
+  console.log('isLoggedIn',isLoggedIn);
   return (
+   
     <IonTabBar slot="bottom" className="instagram-footer">
       <IonTabButton 
         tab="home" 
         href="/home"
         id="home-btn"
+        className='tool-btn'
+        onClick={ ()=>{history.push('/dashboard');} }
         onMouseEnter={() => handleMouseEnter('home')}
         onMouseLeave={() => handleMouseLeave('home')}
       >
-        <IonIcon icon={getIcon(homeOutline, home, 'home')} size="small" style={{ fontSize: '20px' }} />
-        <IonLabel className={hoveredTab === 'home' ? 'label-active' : ''}>Home</IonLabel>
+        <IonIcon icon={getIcon(homeOutline, home, 'home')} size="large" style={{ fontSize: '24px' }} />
+        {/* <IonLabel className={hoveredTab === 'home' ? 'label-active' : ''}>Home</IonLabel> */}
       </IonTabButton>
 
       <IonTabButton 
-        tab="search" 
-        href="/search"
-        id="search-btn"
-        onMouseEnter={() => handleMouseEnter('search')}
-        onMouseLeave={() => handleMouseLeave('search')}
+        tab="nearby" 
+        className='tool-btn'
+        onClick={ ()=>{history.push('/nearby');} }
+        onMouseEnter={() => handleMouseEnter('nearby')}
+        onMouseLeave={() => handleMouseLeave('nearby')}
       >
-        <IonIcon icon={getIcon(searchOutline, search, 'search')} size="small" style={{ fontSize: '20px' }} />
-        <IonLabel className={hoveredTab === 'search' ? 'label-active' : ''}>Search</IonLabel>
+        <IonIcon icon={getIcon(locationOutline, location, 'location')} size="large" style={{ fontSize: '24px' }} />
+        {/* <IonLabel className={hoveredTab === 'search' ? 'label-active' : ''}>Nearby Temple</IonLabel> */}
       </IonTabButton>
 
       <IonTabButton 
-        tab="calendar" 
-        id="calendar-btn"
-        onClick={() => history.push('/calender')}
+        tab="calendar"
+        className='tool-btn' 
+        onClick={ ()=>{history.push('/calender');} }
         onMouseEnter={() => handleMouseEnter('calendar')}
         onMouseLeave={() => handleMouseLeave('calendar')}
       >
-        <IonIcon icon={getIcon(calendarOutline, calendar, 'calendar')} size="small" style={{ fontSize: '20px' }} />
-        <IonLabel className={hoveredTab === 'calendar' ? 'label-active' : ''}>Calendar</IonLabel>
+        <IonIcon icon={getIcon(calendarOutline, calendar, 'calendar')} size="large" style={{ fontSize: '24px' }} />
+        {/* <IonLabel className={hoveredTab === 'calendar' ? 'label-active' : ''}>Calendar</IonLabel> */}
       </IonTabButton>
 
-      {isLoggedIn ? (
-        <>
+      {isLoggedIn && (
           <IonTabButton 
             tab="profile" 
-            href="/profile"
+            onClick={()=>{
+              history.push('/useredit');
+            }}
             id="profile-btn"
+              className='tool-btn'
             onMouseEnter={() => handleMouseEnter('profile')}
             onMouseLeave={() => handleMouseLeave('profile')}
           >
-            <IonIcon icon={getIcon(personCircleOutline, personCircle, 'profile')} size="small" style={{ fontSize: '20px' }} />
-            <IonLabel className={hoveredTab === 'profile' ? 'label-active' : ''}>Profile</IonLabel>
+            <IonIcon icon={getIcon(personCircleOutline, personCircle, 'profile')} size="large" style={{ fontSize: '24px' }} />
+            {/* <IonLabel className={hoveredTab === 'profile' ? 'label-active' : ''}>Profile</IonLabel> */}
           </IonTabButton>
-
+      )}
+          {isLoggedIn ? (
           <IonTabButton 
             tab="logout" 
-            id="logout-btn"
+                className='tool-btn'
             onClick={handleLogout}
             onMouseEnter={() => handleMouseEnter('logout')}
             onMouseLeave={() => handleMouseLeave('logout')}
           >
-            <IonIcon icon={logOutOutline} size="small" style={{ fontSize: '20px' }} />
-            <IonLabel className={hoveredTab === 'logout' ? 'label-active' : ''}>Logout</IonLabel>
+            <IonIcon icon={logOutOutline} size="large" style={{ fontSize: '24px' }} />
+            {/* <IonLabel className={hoveredTab === 'logout' ? 'label-active' : ''}>Logout</IonLabel> */}
           </IonTabButton>
-        </>
       ) : (
         <IonTabButton 
           tab="login" 
-          href="/login"
-          id="login-btn"
+              className='tool-btn'
+          onClick={()=>{
+            history.push('/login');
+          }}
           onMouseEnter={() => handleMouseEnter('login')}
           onMouseLeave={() => handleMouseLeave('login')}
         >
-          <IonIcon icon={logInOutline} size="small" style={{ fontSize: '20px' }} />
-          <IonLabel className={hoveredTab === 'login' ? 'label-active' : ''}>Login</IonLabel>
+          <IonIcon icon={logInOutline} size="large" style={{ fontSize: '24px' }} />
+          {/* <IonLabel className={hoveredTab === 'login' ? 'label-active' : ''}>Login</IonLabel> */}
         </IonTabButton>
       )}
     </IonTabBar>

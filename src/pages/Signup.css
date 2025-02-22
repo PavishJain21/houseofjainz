@@ -46,7 +46,7 @@
   
   
   ion-icon {
-    color: var(--ion-color-medium);
+    color:#ffff
   }
   
   @media (prefers-reduced-motion: reduce) {

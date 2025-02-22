@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import {
   IonContent,
+  IonHeader,
   IonPage,
+  IonTitle,
+  IonToolbar,
   IonItem,
+  IonLabel,
   IonInput,
   IonButton,
   IonIcon,
@@ -14,7 +18,7 @@ import {
   IonText,
   createAnimation,
 } from '@ionic/react';
-import { personCircle, mailOutline, lockClosed } from 'ionicons/icons';
+import { personCircle, mailOutline, lockClosed, logIn } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import './Signup.css';
 
@@ -84,144 +88,120 @@ const Signup = () => {
     e.preventDefault();
     if (validateForm()) {
       setIsSubmitting(true);
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/signup/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: formData.name,
-            email: formData.email,
-            password: formData.password,
-          }),
-        });
-        const data = await response.json();
-        setIsSubmitting(false);
-        if (response.ok) {
-          // Handle successful signup
-          console.log('Signup successful:', data);
-          history.push('/login'); // Redirect to login page after successful signup
-        } else {
-          // Handle errors
-          console.error('Signup failed:', data);
-          setErrors({ form: 'Signup failed. Please try again.' });
-        }
-      } catch (error) {
-        setIsSubmitting(false);
-        console.error('Error:', error);
-        setErrors({ form: 'An error occurred. Please try again.' });
-      }
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setIsSubmitting(false);
     }
   };
 
   return (
     <IonPage>
+ 
       <IonContent fullscreen className="ion-padding">
-        <div className="wave-container">
-          <div className="wave"></div>
-        </div> 
-        <div className="login-container">
-          <IonCard className="auth-card">
-            <IonCardContent>
-              <form onSubmit={handleSubmit}>
-                <IonItem lines="full" className="animate-item">
-                  <IonIcon icon={personCircle} slot="start" />
-                  <IonInput
-                    label="Full Name"
-                    labelPlacement="floating"
-                    type="text"
-                    value={formData.name}
-                    onIonChange={e => setFormData({ ...formData, name: e.detail.value })}
-                    className={errors.name ? 'ion-invalid' : ''}
-                  />
-                </IonItem>
-                {errors.name && (
-                  <IonText color="danger" className="ion-padding-start">
-                    <small>{errors.name}</small>
-                  </IonText>
-                )}
+      <div className="wave-container">
+      <div className="wave"></div>
+    </div>
+      <div className="login-container">
+        <IonCard className="auth-card">
+          <IonCardHeader>
+            <IonCardTitle className="ion-text-center">
+            <div className="logo">House of Jain-Z</div>
+            </IonCardTitle>
+          </IonCardHeader>
 
-                <IonItem lines="full" className="animate-item">
-                  <IonIcon icon={mailOutline} slot="start" />
-                  <IonInput
-                    label="Email"
-                    labelPlacement="floating"
-                    type="email"
-                    value={formData.email}
-                    onIonChange={e => setFormData({ ...formData, email: e.detail.value })}
-                    className={errors.email ? 'ion-invalid' : ''}
-                  />
-                </IonItem>
-                {errors.email && (
-                  <IonText color="danger" className="ion-padding-start">
-                    <small>{errors.email}</small>
-                  </IonText>
-                )}
+          <IonCardContent>
+            <form onSubmit={handleSubmit}>
+              <IonItem lines="full" className="animate-item">
+                <IonIcon icon={personCircle} slot="start" />
+                <IonInput
+                  label="Full Name"
+                  labelPlacement="floating"
+                  type="text"
+                  value={formData.name}
+                  onIonChange={e => setFormData({ ...formData, name: e.detail.value })}
+                  className={errors.name ? 'ion-invalid' : ''}
+                />
+              </IonItem>
+              {errors.name && (
+                <IonText color="danger" className="ion-padding-start">
+                  <small>{errors.name}</small>
+                </IonText>
+              )}
 
-                <IonItem lines="full" className="animate-item">
-                  <IonIcon icon={lockClosed} slot="start" />
-                  <IonInput
-                    label="Password"
-                    labelPlacement="floating"
-                    type="password"
-                    value={formData.password}
-                    onIonChange={e => setFormData({ ...formData, password: e.detail.value })}
-                    className={errors.password ? 'ion-invalid' : ''}
-                  />
-                </IonItem>
-                {errors.password && (
-                  <IonText color="danger" className="ion-padding-start">
-                    <small>{errors.password}</small>
-                  </IonText>
-                )}
+              <IonItem lines="full" className="animate-item">
+                <IonIcon icon={mailOutline} slot="start" />
+                <IonInput
+                  label="Email"
+                  labelPlacement="floating"
+                  type="email"
+                  value={formData.email}
+                  onIonChange={e => setFormData({ ...formData, email: e.detail.value })}
+                  className={errors.email ? 'ion-invalid' : ''}
+                />
+              </IonItem>
+              {errors.email && (
+                <IonText color="danger" className="ion-padding-start">
+                  <small>{errors.email}</small>
+                </IonText>
+              )}
 
-                <IonItem lines="full" className="animate-item">
-                  <IonIcon icon={lockClosed} slot="start" />
-                  <IonInput
-                    label="Confirm Password"
-                    labelPlacement="floating"
-                    type="password"
-                    value={formData.confirmPassword}
-                    onIonChange={e => setFormData({ ...formData, confirmPassword: e.detail.value })}
-                    className={errors.confirmPassword ? 'ion-invalid' : ''}
-                  />
-                </IonItem>
-                {errors.confirmPassword && (
-                  <IonText color="danger" className="ion-padding-start">
-                    <small>{errors.confirmPassword}</small>
-                  </IonText>
-                )}
+              <IonItem lines="full" className="animate-item">
+                <IonIcon icon={lockClosed} slot="start" />
+                <IonInput
+                  label="Password"
+                  labelPlacement="floating"
+                  type="password"
+                  value={formData.password}
+                  onIonChange={e => setFormData({ ...formData, password: e.detail.value })}
+                  className={errors.password ? 'ion-invalid' : ''}
+                />
+              </IonItem>
+              {errors.password && (
+                <IonText color="danger" className="ion-padding-start">
+                  <small>{errors.password}</small>
+                </IonText>
+              )}
 
-                {errors.form && (
-                  <IonText color="danger" className="ion-padding-start">
-                    <small>{errors.form}</small>
-                  </IonText>
-                )}
+              <IonItem lines="full" className="animate-item">
+                <IonIcon icon={lockClosed} slot="start" />
+                <IonInput
+                  label="Confirm Password"
+                  labelPlacement="floating"
+                  type="password"
+                  value={formData.confirmPassword}
+                  onIonChange={e => setFormData({ ...formData, confirmPassword: e.detail.value })}
+                  className={errors.confirmPassword ? 'ion-invalid' : ''}
+                />
+              </IonItem>
+              {errors.confirmPassword && (
+                <IonText color="danger" className="ion-padding-start">
+                  <small>{errors.confirmPassword}</small>
+                </IonText>
+              )}
 
-                <div className="ion-padding">
-                  <IonButton
-                    expand="block"
-                    type="submit"
-                    fill="clear"
-                    className="animate-item"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Creating Account...' : 'Sign Up'}
-                  </IonButton>
+              <div className="ion-padding">
+                <IonButton
+                  expand="block"
+                  type="submit"
+                  fill="clear"
+                  className="animate-item"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Creating Account...' : 'Sign Up'}
+                </IonButton>
 
-                  <IonButton
-                    expand="block"
-                    fill="clear"
-                    className="animate-item"
-                    onClick={() => history.push('/login')}
-                  >
-                    Already have an account? Log in
-                  </IonButton>
-                </div>
-              </form>
-            </IonCardContent>
-          </IonCard>
+                <IonButton
+                  expand="block"
+                  fill="clear"
+                  className="animate-item"
+                  onClick={() => history.push('/login')}
+                >
+                  Already have an account? Log in
+                </IonButton>
+              </div>
+            </form>
+          </IonCardContent>
+        </IonCard>
         </div>
       </IonContent>
     </IonPage>

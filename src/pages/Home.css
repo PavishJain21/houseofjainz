@@ -1,3 +1,46 @@
-.get-started-btn{
-    padding: 1rem;;
+.get-started-btn {
+  padding: 1rem;
+}
+
+.card-animation {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-animation.hovered {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.icon-animation {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.card-animation.hovered .icon-animation {
+  transform: scale(1.2);
+  background-color: #f0f0f0;
+}
+
+.icon-size {
+  font-size: 2.5rem;
+  color: #4b5563;
+}
+
+.square-container {
+  position: relative;
+  width: 40%;
+  padding-top: 50%; /* 1:1 Aspect Ratio */
+}
+
+.square-container > .h-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .aspect-square {
+    height: auto;
+  }
 }

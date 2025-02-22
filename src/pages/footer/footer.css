@@ -1,0 +1,7 @@
+.instagram-footer {
+ background:linear-gradient(45deg, var(--primary), var(--secondary));
+}
+
+.tool-btn {
+    background:linear-gradient(45deg, var(--primary));
+}

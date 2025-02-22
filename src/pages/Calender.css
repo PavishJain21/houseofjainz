@@ -89,12 +89,12 @@
   }
   
   .festival-icon {
-    color: #FF725E;
+    color:linear-gradient(45deg, var(--primary), var(--secondary))
     font-size: 1.5rem;
   }
   
   ion-icon {
-    color: #FF725E;
+    color:fff
   }
   
   @media (max-width: 768px) {
