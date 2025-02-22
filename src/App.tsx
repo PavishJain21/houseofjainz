@@ -36,12 +36,15 @@ import AppRouter from './AppRouter';
 import Header from './pages/Header/Header';
 import FooterPage from './pages/footer/footer';
 import Menu from './pages/Menu/Menu';
+import './i18n/config';
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp className='custom-ion-page'>
-    <div className="content" >
+    <div className="content">
+      {/* <LanguageSwitcher /> */}
       <AppRouter />
     </div>
   </IonApp>

@@ -141,18 +141,20 @@ const login: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      {/* <IonHeader>
         <IonToolbar>
           {step === 2 && (
             <IonButtons slot="start">
               <IonBackButton defaultHref="#" onClick={() => setStep(1)} />
             </IonButtons>
           )}
-          <IonTitle>{isLogin ? 'Login' : 'Sign Up'}</IonTitle>
         </IonToolbar>
-      </IonHeader>
+      </IonHeader> */}
 
-      <IonContent className="auth-content">
+      <IonContent className="">
+      <div className="wave-container">
+          <div className="wave"></div>
+        </div>
         <IonGrid>
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeMd="8" sizeLg="6">

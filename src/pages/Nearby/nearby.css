@@ -37,3 +37,7 @@
   --background: linear-gradient(45deg, var(--primary), var(--secondary))
   --border-radius: 10px;
 }
+
+.fc-white {
+  color: #fff !important
+}

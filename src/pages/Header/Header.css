@@ -9,3 +9,13 @@
 :host .toolbar-background {
   background: linear-gradient(45deg, var(--primary), var(--secondary)) !important;
 }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.header-right button {
+  margin-left: 10px;
+}

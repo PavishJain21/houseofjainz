@@ -21,7 +21,7 @@ const AppRouter: React.FC = () => (
     <Header />
      <Menu />
      <FooterPage/>
-    <IonRouterOutlet id="main-content" className='custom-router-outlet'>
+    <IonRouterOutlet id="main-content" className='custom-router-outlet mt-5rem'>
       <Route exact path="/splash">
         <SplashScreen />
       </Route>
@@ -32,17 +32,17 @@ const AppRouter: React.FC = () => (
       <Route path="/signup" component={Signup} exact={true} />
       <Route path="/dashboard" component={FeedPage} exact={true} />
       <Route path="/add" component={AddContact} exact />
-          <Route path="/list" component={ContactList} exact />
+          <Route path="/directory" component={ContactList} exact />
       <Route exact path="/">
         <Redirect to="/splash" />
       </Route>
-      <Route path="/calender">
+      <Route path="/panchang">
         <Calendar />
       </Route>
       <Route exact path="/useredit">
         <ProfileEdit />
       </Route>
-      <Route exact path="/nearby">
+      <Route exact path="/temples">
         <NearbyTemples />
       </Route>
     </IonRouterOutlet>

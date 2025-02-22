@@ -84,7 +84,7 @@ const FooterPage: React.FC = () => {
         href="/home"
         id="home-btn"
         className='tool-btn'
-        onClick={ ()=>{history.push('/dashboard');} }
+        onClick={ ()=>{history.push('/home');} }
         onMouseEnter={() => handleMouseEnter('home')}
         onMouseLeave={() => handleMouseLeave('home')}
       >

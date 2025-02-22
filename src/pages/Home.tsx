@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   IonContent,
   IonHeader,
@@ -24,95 +25,82 @@ import {
 import './Home.css';
 
 const Home = () => {
+  const { t } = useTranslation();
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const menuItems = [
     {
-      title: 'Dashboard',
+      title: t('dashboard'),
       icon: gridOutline,
       path: '/dashboard',
-      description: 'Activity Overview'
+      description: t('activity_overview')
     },
     {
-      title: 'Phone Directory',
+      title: t('phone_directory'),
       icon: callOutline,
       path: '/directory',
-      description: 'Contacts List'
+      description: t('contacts_list')
     },
     {
-      title: 'Panchang',
+      title: t('panchang'),
       icon: calendarOutline,
       path: '/panchang',
-      description: 'Daily Almanac'
+      description: t('daily_almanac')
     },
     {
-      title: 'Nearby Temples',
+      title: t('nearby_temples'),
       icon: locationOutline,
       path: '/temples',
-      description: 'Sacred Places'
+      description: t('sacred_places')
     },
     {
-      title: 'Contact',
+      title: t('contact'),
       icon: peopleOutline,
       path: '/contact',
-      description: 'Get in Touch'
+      description: t('get_in_touch')
     }
   ];
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle className="text-center font-medium text-gray-700">
-            My App
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      
       <IonContent className="bg-gray-50">
+      <div className="wave-container">
+          <div className="wave"></div>
+        </div>
         <div className="p-6">
           <h1 className="text-2xl font-semibold text-center mb-8 text-gray-800">
-            Welcome Back to House of jainz
+            {t('welcome')}
           </h1>
           
           <IonGrid>
             <IonRow className="ion-justify-content-center">
               {menuItems.map((item, index) => (
                 <IonCol 
-                  size="12" 
+                  size="6" 
                   size-md="6" 
-                  size-lg="4"
+                  size-lg="6" // Change size-lg to 6 to fit two cards per row
                   key={index}
                   className="ion-padding"
                 >
                   <div 
-                    className="aspect-square"
+                    className="aspect-square square-box" // Add square-box class
                     onMouseEnter={() => setHoveredCard(index)}
                     onMouseLeave={() => setHoveredCard(null)}
                   >
                     <IonCard
                       routerLink={item.path}
                       className={`h-full m-0 rounded-xl bg-white card-animation ${hoveredCard === index ? 'hovered' : ''}`}
+                      style={{ background: 'linear-gradient(75deg, var(--primary), var(--secondary))', color: 'white' }}
                     >
-                      <div className="flex flex-col items-center justify-center h-full p-4">
-                        <div 
-                          className="rounded-full p-4 mb-4 icon-animation"
-                        >
-                          <IonIcon
-                            icon={item.icon}
-                            className="icon-size"
-                          />
-                        </div>
-                        
-                        <IonCardTitle className="text-center text-gray-700 font-medium mb-2">
+                      <div className="flex items-center justify-center h-full p-4" style={{ marginTop: '60px' ,marginLeft: '20px'}}>
+                        <IonIcon
+                          icon={item.icon}
+                          className="icon-size"
+                          style={{ color: 'white', marginLeft: '40px' }}
+                        />
+                        <IonCardTitle className="text-center text-gray-700 fs-30" style={{ color: 'white', marginLeft: '30px' }}>
                           {item.title}
                         </IonCardTitle>
-                        
-                        <IonText 
-                          className="text-center text-sm text-gray-500"
-                        >
-                          {/* {item.description} */}
-                        </IonText>
                       </div>
                     </IonCard>
                   </div>

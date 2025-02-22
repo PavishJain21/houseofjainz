@@ -21,8 +21,11 @@ import {
 } from '@ionic/react';
 import { checkmark, arrowBack, personCircle, mail, call, school, heart } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './profile-edit.css';
+
 const ProfileEdit: React.FC = () => {
+    const { t } = useTranslation();
     const [profile, setProfile] = useState({
         fullName: '',
         email: '',
@@ -35,20 +38,20 @@ const ProfileEdit: React.FC = () => {
     const history = useHistory();
 
     const relationshipOptions = [
-        'Single',
-        'In a Relationship',
-        'Married',
-        'Divorced',
-        'Widowed',
-        'Prefer not to say',
+        t('profile.relationship.single'),
+        t('profile.relationship.inARelationship'),
+        t('profile.relationship.married'),
+        t('profile.relationship.divorced'),
+        t('profile.relationship.widowed'),
+        t('profile.relationship.preferNotToSay'),
     ];
 
     const educationOptions = [
-        'High School',
-        'Bachelor\'s Degree',
-        'Master\'s Degree',
-        'Ph.D.',
-        'Other',
+        t('profile.education.highSchool'),
+        t('profile.education.bachelorsDegree'),
+        t('profile.education.mastersDegree'),
+        t('profile.education.phd'),
+        t('profile.education.other'),
     ];
 
     useEffect(() => {
@@ -154,7 +157,7 @@ const ProfileEdit: React.FC = () => {
 
     return (
         <IonPage>
-            <IonContent className="ion-padding">
+            <IonContent className="ion-padding" >
                 <style>
                     {`
             .input-item {
@@ -200,11 +203,11 @@ const ProfileEdit: React.FC = () => {
                 <form onSubmit={handleSubmit} className="list-container">
                     <IonList>
                         {[
-                            { field: 'fullName', label: 'Full Name', type: 'text', editable: false },
-                            { field: 'email', label: 'Email', type: 'email', editable: false },
-                            { field: 'phone', label: 'Phone Number', type: 'tel', editable: true },
-                            { field: 'education', label: 'Education', type: 'select', options: educationOptions, editable: true },
-                            { field: 'relationship', label: 'Relationship Status', type: 'select', options: relationshipOptions, editable: true }
+                            { field: 'fullName', label: t('profile.fullName'), type: 'text', editable: false },
+                            { field: 'email', label: t('profile.email'), type: 'email', editable: false },
+                            { field: 'phone', label: t('profile.phoneNumber'), type: 'tel', editable: true },
+                            { field: 'education', label: t('profile.education'), type: 'select', options: educationOptions, editable: true },
+                            { field: 'relationship', label: t('profile.relationshipStatus'), type: 'select', options: relationshipOptions, editable: true }
                         ].map(({ field, label, type, options, editable }) => (
                             <IonItem
                                 key={field}
@@ -224,7 +227,7 @@ const ProfileEdit: React.FC = () => {
                                         onIonFocus={() => handleFocus(field)}
                                         onIonBlur={() => setActiveInput('')}
                                         interface="action-sheet"
-                                        placeholder={`Select ${label.toLowerCase()}`}
+                                        placeholder={t(`profile.select${label}`)}
                                         disabled={!editable}
                                     >
                                         {options?.map(option => (
@@ -240,7 +243,7 @@ const ProfileEdit: React.FC = () => {
                                         onIonChange={e => handleChange(field, e.detail.value!)}
                                         onIonFocus={() => handleFocus(field)}
                                         onIonBlur={() => setActiveInput('')}
-                                        placeholder={`Enter your ${label.toLowerCase()}`}
+                                        placeholder={t(`profile.enter${label}`)}
                                         clearInput
                                         disabled={!editable}
                                     />
@@ -251,14 +254,14 @@ const ProfileEdit: React.FC = () => {
                     </IonList>
                 </form>
                 <IonButtons>
-                               <IonButton fill="clear" onClick={handleSubmit} expand="block" size="small">
-                                    Save Changes
-                            </IonButton>
-                    </IonButtons>
+                    <IonButton fill="clear" onClick={handleSubmit} expand="block" size="small">
+                        {t('profile.saveChanges')}
+                    </IonButton>
+                </IonButtons>
                 <IonToast
                     isOpen={showToast}
                     onDidDismiss={() => setShowToast(false)}
-                    message="Profile updated successfully!"
+                    message={t('profile.updateSuccess')}
                     duration={2000}
                     position="bottom"
                     color="success"

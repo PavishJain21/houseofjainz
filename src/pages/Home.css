@@ -39,8 +39,26 @@
   bottom: 0;
 }
 
+.square-box {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+}
+
+.square-box > * {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 @media (max-width: 768px) {
   .aspect-square {
     height: auto;
   }
+}
+
+.fs-30 {
+  font-size: small;
 }

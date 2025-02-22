@@ -60,12 +60,10 @@ const NearbyTemples: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Nearby Temples</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent>
+      <div className="wave-container">
+          <div className="wave"></div>
+        </div>
         {isLoading ? (
           <div className="loading-container">
             <IonSpinner name="crescent" />
@@ -82,7 +80,7 @@ const NearbyTemples: React.FC = () => {
               >
                 <IonItem button onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(temple.description)}`, '_blank')}>
                   <IonIcon icon={locationOutline} slot="start" />
-                  <IonLabel>{temple.description}</IonLabel>
+                  <IonLabel className='fc-white'>{temple.description}</IonLabel>
                 </IonItem>
               </motion.div>
             ))}

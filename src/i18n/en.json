@@ -1,0 +1,36 @@
+{
+    "profile": {
+        "fullName": "Full Name",
+        "email": "Email",
+        "phoneNumber": "Phone Number",
+        "education": "Education",
+        "relationshipStatus": "Relationship Status",
+        "saveChanges": "Save Changes",
+        "updateSuccess": "Profile updated successfully!",
+        "selectFullName": "Select full name",
+        "selectEmail": "Select email",
+        "selectPhoneNumber": "Select phone number",
+        "selectEducation": "Select education",
+        "selectRelationshipStatus": "Select relationship status",
+        "enterFullName": "Enter your full name",
+        "enterEmail": "Enter your email",
+        "enterPhoneNumber": "Enter your phone number",
+        "enterEducation": "Enter your education",
+        "enterRelationshipStatus": "Enter your relationship status"
+    },
+    "relationship": {
+        "single": "Single",
+        "inARelationship": "In a Relationship",
+        "married": "Married",
+        "divorced": "Divorced",
+        "widowed": "Widowed",
+        "preferNotToSay": "Prefer not to say"
+    },
+    "education": {
+        "highSchool": "High School",
+        "bachelorsDegree": "Bachelor's Degree",
+        "mastersDegree": "Master's Degree",
+        "phd": "Ph.D.",
+        "other": "Other"
+    }
+}

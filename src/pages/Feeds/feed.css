@@ -56,8 +56,10 @@
 }
 
 .post-image {
+  object-fit: cover;
   width: 100%;
   height: auto;
+  aspect-ratio: 1 / 1;
   transition: transform 0.3s ease;
 }
 
@@ -139,6 +141,9 @@
   100% { background-position: 468px 0; }
 }
 
+.loading-shimmer {
+  animation: shimmer 1s linear infinite;
+  background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
 .loading-shimmer {
   animation: shimmer 1s linear infinite;
   background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
