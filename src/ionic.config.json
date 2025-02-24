@@ -1,0 +1,7 @@
+{
+  "name": "hoj",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

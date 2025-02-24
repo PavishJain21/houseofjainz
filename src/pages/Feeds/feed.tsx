@@ -43,11 +43,13 @@ import FooterPage from '../footer/footer';
 import './feed.css';
 
 const FeedPage = () => {
+  const user  = localStorage.getItem('userDetails')
+  const userDetails = user ?? JSON.parse(user);
   const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newPost, setNewPost] = useState({
-    username: 'jain_community',
+    username: userDetails.username,
     userAvatar: 'src/assets/user-image.jpg',
     image: null, // This will now store the File object
     likes: 0,
@@ -64,9 +66,10 @@ const FeedPage = () => {
   const [shareUrl, setShareUrl] = useState('');
 
   useEffect(() => {
+
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/posts/');
+        const response = await fetch('http://13.201.104.120:8000/api/posts/');
         const data = await response.json();
         setPosts(data);
         setIsLoading(false);
@@ -150,7 +153,7 @@ const FeedPage = () => {
     formData.append('isDoubleTapped', newPost.isDoubleTapped.toString());
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/posts/create/', {
+      const response = await fetch('http://13.201.104.120:8000/api/posts/create/', {
         method: 'POST',
         body: formData,
       });

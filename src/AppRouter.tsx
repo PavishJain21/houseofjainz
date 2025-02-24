@@ -15,38 +15,60 @@ import Header from './pages/Header/Header';
 import FooterPage from './pages/footer/footer';
 import AddContact from './pages/Directory/AddContact';
 import ContactList from './pages/Directory/ContactList';
+import { getToken, refreshAccessToken } from './utils/tokenUtil';
+import { useState, useEffect } from 'react';
 
-const AppRouter: React.FC = () => (
-  <IonReactRouter >
-    <Header />
-     <Menu />
-     <FooterPage/>
-    <IonRouterOutlet id="main-content" className='custom-router-outlet mt-5rem'>
-      <Route exact path="/splash">
-        <SplashScreen />
-      </Route>
-      <Route exact path="/home">
-        <Home />
-      </Route>
-      <Route path="/login" component={LoginPage} exact={true} />
-      <Route path="/signup" component={Signup} exact={true} />
-      <Route path="/dashboard" component={FeedPage} exact={true} />
-      <Route path="/add" component={AddContact} exact />
-          <Route path="/directory" component={ContactList} exact />
-      <Route exact path="/">
-        <Redirect to="/splash" />
-      </Route>
-      <Route path="/panchang">
-        <Calendar />
-      </Route>
-      <Route exact path="/useredit">
-        <ProfileEdit />
-      </Route>
-      <Route exact path="/temples">
-        <NearbyTemples />
-      </Route>
-    </IonRouterOutlet>
-  </IonReactRouter>
-);
+const AppRouter: React.FC = () => {
+  const [token, setToken] = useState(getToken());
+
+  useEffect(() => {
+    const checkToken = async () => {
+      if (!token) {
+        const newToken = await refreshAccessToken();
+        setToken(newToken);
+      }
+    };
+    checkToken();
+  }, [token]);
+
+  return (
+    <IonReactRouter>
+      <Header />
+      <Menu />
+      <FooterPage />
+      <IonRouterOutlet id="main-content" className='custom-router-outlet mt-2rem'>
+        <Route exact path="/splash">
+          <SplashScreen />
+        </Route>
+        <Route exact path="/home">
+          {token ? <Home /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/login" component={LoginPage} exact={true} />
+        <Route path="/signup" component={Signup} exact={true} />
+        <Route path="/dashboard">
+          {token ? <FeedPage /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/add">
+          {token ? <AddContact /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/directory">
+          {token ? <ContactList /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/">
+          <Redirect to="/splash" />
+        </Route>
+        <Route path="/panchang">
+          {token ? <Calendar /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/useredit">
+          {token ? <ProfileEdit /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/temples">
+          {token ? <NearbyTemples /> : <Redirect to="/login" />}
+        </Route>
+      </IonRouterOutlet>
+    </IonReactRouter>
+  );
+};
 
 export default AppRouter;

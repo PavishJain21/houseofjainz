@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   IonContent,
@@ -14,6 +14,8 @@ import {
   IonCol,
   IonIcon,
   IonText,
+  IonCardContent,
+  IonLabel,
 } from '@ionic/react';
 import {
   gridOutline,
@@ -27,6 +29,26 @@ import './Home.css';
 const Home = () => {
   const { t } = useTranslation();
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const response = await fetch('http://13.201.104.120:8000/api/get-logged-in-user/', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+          }
+        });
+        const data = await response.json();
+        localStorage.setItem('userDetails', JSON.stringify(data));
+        setUsername(data.username);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    };
+
+    fetchUserDetails();
+  }, []);
 
   const menuItems = [
     {
@@ -56,55 +78,80 @@ const Home = () => {
     {
       title: t('contact'),
       icon: peopleOutline,
-      path: '/contact',
+      path: '/directory',
       description: t('get_in_touch')
     }
   ];
+  interface DashboardCardProps {
+    icon: string;
+    title: string;
+    path:string;
+  }
+
+  const cardStyle: React.CSSProperties = {
+    margin: '8px',
+    borderRadius: '12px',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+  };
+  
+  const iconContainerStyle: React.CSSProperties = {
+    background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+    borderRadius: '50%',
+    padding: '12px',
+    width: '48px',
+    height: '48px',
+    margin: '0 auto 12px auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
+  
+  const iconStyle: React.CSSProperties = {
+    fontSize: '24px',
+    color: 'white',
+  };
+  
+  const welcomeStyle: React.CSSProperties = {
+    fontSize: '24px',
+    fontWeight: 'bold',
+    margin: '20px 0',
+    color: '#1f2937',
+  };
+  
+
+  const DashboardCard: React.FC<DashboardCardProps> = ({ icon, title, path }) => (
+    <IonCol size="6">
+      <IonCard  routerLink={path} className="ion-text-center" style={cardStyle}>
+        <IonCardContent>
+          <div style={iconContainerStyle}>
+            <IonIcon icon={icon} style={iconStyle} />
+          </div>
+          <IonLabel>{title}</IonLabel>
+        </IonCardContent>
+      </IonCard>
+    </IonCol>
+  );
 
   return (
     <IonPage>
       <IonContent className="bg-gray-50">
-      <div className="wave-container">
+        <div className="wave-container">
           <div className="wave"></div>
         </div>
         <div className="p-6">
           <h1 className="text-2xl font-semibold text-center mb-8 text-gray-800">
-            {t('welcome')}
+            {username ? `Welcome, ${username}` : 'Welcome'}
           </h1>
           
           <IonGrid>
             <IonRow className="ion-justify-content-center">
               {menuItems.map((item, index) => (
-                <IonCol 
-                  size="6" 
-                  size-md="6" 
-                  size-lg="6" // Change size-lg to 6 to fit two cards per row
+                <DashboardCard
                   key={index}
-                  className="ion-padding"
-                >
-                  <div 
-                    className="aspect-square square-box" // Add square-box class
-                    onMouseEnter={() => setHoveredCard(index)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                  >
-                    <IonCard
-                      routerLink={item.path}
-                      className={`h-full m-0 rounded-xl bg-white card-animation ${hoveredCard === index ? 'hovered' : ''}`}
-                      style={{ background: 'linear-gradient(75deg, var(--primary), var(--secondary))', color: 'white' }}
-                    >
-                      <div className="flex items-center justify-center h-full p-4" style={{ marginTop: '60px' ,marginLeft: '20px'}}>
-                        <IonIcon
-                          icon={item.icon}
-                          className="icon-size"
-                          style={{ color: 'white', marginLeft: '40px' }}
-                        />
-                        <IonCardTitle className="text-center text-gray-700 fs-30" style={{ color: 'white', marginLeft: '30px' }}>
-                          {item.title}
-                        </IonCardTitle>
-                      </div>
-                    </IonCard>
-                  </div>
-                </IonCol>
+                  icon={item.icon}
+                  title={item.title}
+                  path={item.path}
+                />
               ))}
             </IonRow>
           </IonGrid>

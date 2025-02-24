@@ -78,7 +78,7 @@ const FooterPage: React.FC = () => {
   console.log('isLoggedIn',isLoggedIn);
   return (
    
-    <IonTabBar slot="bottom" className="instagram-footer">
+    <IonTabBar slot="bottom" className="hoj-footer">
       <IonTabButton 
         tab="home" 
         href="/home"
@@ -95,7 +95,7 @@ const FooterPage: React.FC = () => {
       <IonTabButton 
         tab="nearby" 
         className='tool-btn'
-        onClick={ ()=>{history.push('/nearby');} }
+        onClick={ ()=>{history.push('/temples');} }
         onMouseEnter={() => handleMouseEnter('nearby')}
         onMouseLeave={() => handleMouseLeave('nearby')}
       >
@@ -106,7 +106,7 @@ const FooterPage: React.FC = () => {
       <IonTabButton 
         tab="calendar"
         className='tool-btn' 
-        onClick={ ()=>{history.push('/calender');} }
+        onClick={ ()=>{history.push('/panchang');} }
         onMouseEnter={() => handleMouseEnter('calendar')}
         onMouseLeave={() => handleMouseLeave('calendar')}
       >

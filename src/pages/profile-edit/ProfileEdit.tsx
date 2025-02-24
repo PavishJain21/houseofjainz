@@ -23,11 +23,14 @@ import { checkmark, arrowBack, personCircle, mail, call, school, heart } from 'i
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './profile-edit.css';
+import { refreshAccessToken } from '../../utils/tokenUtil';
 
 const ProfileEdit: React.FC = () => {
     const { t } = useTranslation();
+    const user = localStorage.getItem('userDetails');
+    const userDetails = user ? JSON.parse(user) : {};
     const [profile, setProfile] = useState({
-        fullName: '',
+        fullName: userDetails.username || '',
         email: '',
         phone: '',
         education: '',
@@ -57,7 +60,7 @@ const ProfileEdit: React.FC = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/user-edit/', {
+                const response = await fetch('http://13.201.104.120:8000/api/user-edit/', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                     }
@@ -72,6 +75,9 @@ const ProfileEdit: React.FC = () => {
                         relationship: data.relationship_status,
                     });
                 } else {
+                    debugger;
+                    refreshAccessToken();
+                    fetchProfile();
                     console.error('Error fetching profile:', data);
                 }
             } catch (error) {
@@ -119,18 +125,18 @@ const ProfileEdit: React.FC = () => {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/user-edit/update/', {
+            const response = await fetch('http://13.201.104.120:8000/api/user-edit/update/', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 },
                 body: JSON.stringify({
-                    username: profile.fullName,
+                    fullName: profile.fullName,
                     email: profile.email,
-                    phonenumber: profile.phone,
+                    phone: profile.phone,
                     education: profile.education,
-                    relationship_status: profile.relationship,
+                    relationship: profile.relationship,
                 }),
             });
             const data = await response.json();
@@ -157,12 +163,17 @@ const ProfileEdit: React.FC = () => {
 
     return (
         <IonPage>
-            <IonContent className="ion-padding" >
+            <IonContent className="ion-padding light-theme">
                 <style>
                     {`
+            .light-theme {
+              --ion-background-color: #ffffff;
+              --ion-text-color: #000000;
+            }
+
             .input-item {
               --border-radius: 10px;
-              --background: #f8f8f8;
+              --background: #f0f0f0;
               margin: 10px 0;
               transition: all 0.3s ease;
             }
@@ -171,12 +182,6 @@ const ProfileEdit: React.FC = () => {
               --background: #ffffff;
               box-shadow: 0 4px 12px rgba(0,0,0,0.1);
               transform: translateY(-2px);
-            }
-
-            .item-icon {
-              margin-right: 10px;
-              color: #6B73FF;
-              transition: all 0.3s ease;
             }
 
             .active .item-icon {
@@ -197,14 +202,24 @@ const ProfileEdit: React.FC = () => {
             .list-container {
               animation: slideIn 0.5s ease-out;
             }
+
+            .save-button {
+              --background: #007bff;
+              --color: #ffffff;
+            }
+
+            .success-toast {
+              --background: #28a745;
+              --color: #ffffff;
+            }
           `}
                 </style>
             
                 <form onSubmit={handleSubmit} className="list-container">
                     <IonList>
                         {[
-                            { field: 'fullName', label: t('profile.fullName'), type: 'text', editable: false },
-                            { field: 'email', label: t('profile.email'), type: 'email', editable: false },
+                            { field: 'fullName', label: t('profile.fullName'), type: 'text', editable: true },
+                            { field: 'email', label: t('profile.email'), type: 'email', editable: true },
                             { field: 'phone', label: t('profile.phoneNumber'), type: 'tel', editable: true },
                             { field: 'education', label: t('profile.education'), type: 'select', options: educationOptions, editable: true },
                             { field: 'relationship', label: t('profile.relationshipStatus'), type: 'select', options: relationshipOptions, editable: true }

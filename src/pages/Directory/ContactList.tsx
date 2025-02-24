@@ -55,7 +55,7 @@ const IonicList: React.FC = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/contact-list-create/');
+      const response = await fetch('http://13.201.104.120:8000/api/contact-list-create/');
       const data = await response.json();
       setItems(data);
     } catch (error) {
