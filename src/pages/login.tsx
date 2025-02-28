@@ -26,6 +26,8 @@ import { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './login.css';
 import logo from '../assets/hoj.svg'; 
+import authMiddleware from '../middleware/authMiddleware';
+
 const Login: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -66,7 +68,7 @@ const Login: React.FC = () => {
     }
     setLoading(true);
     try {
-      const response = await fetch('https://houseofjainz.com/api/send-otp/', {
+      const response = await authMiddleware('/send-otp/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -140,7 +142,7 @@ const Login: React.FC = () => {
   };
 
   const verifyOtp = async () => {
-    if (otp.join('').length !== 6) {
+    if (otp.join('').length<5) {
       present({
         message: 'Please enter a valid OTP',
         duration: 2000,
@@ -151,7 +153,7 @@ const Login: React.FC = () => {
     }
     setLoading(true);
     try {
-      const response = await fetch('https://houseofjainz.com/api/verify-otp/', {
+      const response = await authMiddleware('/verify-otp/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -169,11 +171,7 @@ const Login: React.FC = () => {
         });
         localStorage.setItem('authToken', data.access);
         localStorage.setItem('refreshToken', data.refresh);
-        if (data.IsNewUser) {
-          history.push('/useredit');
-        } else {
-          history.push('/dashboard');
-        }
+        history.push('/home'); // Route to home page URL
       } else {
         present({
           message: data.error || 'Invalid OTP',

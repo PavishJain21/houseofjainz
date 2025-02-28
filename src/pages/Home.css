@@ -1,64 +1,223 @@
-.get-started-btn {
-  padding: 1rem;
+/* HomeMobile.css */
+.mobile-gradient-bg {
+  --background: #f8fafc;
+  font-family: 'Poppins', sans-serif;
 }
 
-.card-animation {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Header Styling */
+.mobile-header {
+  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+  padding: 1.5rem 1.25rem 1rem;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
 }
 
-.card-animation.hovered {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
 }
 
-.icon-animation {
-  transition: transform 0.3s ease, background-color 0.3s ease;
+.greeting-text {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1e293b;
 }
 
-.card-animation.hovered .icon-animation {
-  transform: scale(1.2);
-  background-color: #f0f0f0;
+.greeting-subtext {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.9rem;
+  color: #64748b;
 }
 
-.icon-size {
-  font-size: 2.5rem;
-  color: #4b5563;
+.header-icons {
+  display: flex;
+  align-items: center;
 }
 
-.square-container {
+.notification-icon {
   position: relative;
-  width: 40%;
-  padding-top: 50%; /* 1:1 Aspect Ratio */
+  margin-right: 1rem;
+  font-size: 1.4rem;
+  color: #334155;
 }
 
-.square-container > .h-full {
+.notification-badge {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  border: 2px solid #e0f2fe;
 }
 
-.square-box {
-  position: relative;
-  width: 100%;
-  padding-top: 100%; /* 1:1 Aspect Ratio */
+.menu-icon {
+  font-size: 1.4rem;
+  color: #334155;
 }
 
-.square-box > * {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+/* Custom Searchbar */
+.custom-searchbar {
+  --background: #ffffff;
+  --color: #334155;
+  --placeholder-color: #94a3b8;
+  --icon-color: #94a3b8;
+  --border-radius: 12px;
+  --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
 }
 
-@media (max-width: 768px) {
-  .aspect-square {
-    height: auto;
+/* Quick Action Chips */
+.quick-actions {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none;  /* Hide scrollbar for Firefox */
+}
+
+.quick-actions::-webkit-scrollbar {
+  display: none;  /* Hide scrollbar for Chrome, Safari and Opera */
+}
+
+.action-chip {
+  --background: #ffffff;
+  --color: #334155;
+  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  margin-right: 0.5rem;
+  white-space: nowrap;
+  font-size: 0.85rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+/* Content Section */
+.mobile-content {
+  padding: 1.25rem;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.section-title {
+  margin-bottom: 0.75rem;
+}
+
+.section-title h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 0.5rem 0;
+}
+
+/* Featured Card */
+.featured-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  background: linear-gradient(to right, #f0f9ff, #e0f2fe);
+  margin-bottom: 1.5rem;
+  border: none;
+}
+
+.featured-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+  color: #1e293b;
+}
+
+.featured-subtitle {
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.featured-button {
+  --padding-start: 0;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.featured-icon-container {
+  background-color: rgba(99, 102, 241, 0.1);
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.featured-icon-container ion-icon {
+  font-size: 1.75rem;
+  color: #6366f1;
+}
+
+/* Card Styling */
+.menu-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mobile-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin: 0;
+  background: white;
+}
+
+.mobile-card ion-card-content {
+  padding: 0.75rem;
+}
+
+.card-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.card-icon ion-icon {
+  font-size: 1.25rem;
+}
+
+.card-title {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.card-subtitle {
+  display: block;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Animation for skeleton loading */
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
   }
 }
 
-.fs-30 {
-  font-size: small;
+/* Ripple effect styling */
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
 }

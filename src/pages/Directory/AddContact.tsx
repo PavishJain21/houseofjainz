@@ -75,7 +75,7 @@ const AddContact: React.FC = () => {
     setLoading(true);
     
     try {
-      const response = await fetch(' https://houseofjainz.com/api//api/contact-list-create/', {
+      const response = await fetch('https://houseofjainz.com/api//api/contact-list-create/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

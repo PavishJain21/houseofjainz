@@ -93,10 +93,6 @@
     font-size: 1.5rem;
   }
   
-  ion-icon {
-    color:fff
-  }
-  
   @media (max-width: 768px) {
     .page-header h1 {
       font-size: 1.5rem;

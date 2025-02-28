@@ -44,7 +44,7 @@ setupIonicReact();
 const App: React.FC = () => (
   <IonApp className='custom-ion-page'>
     <div className="content">
-      {/* <LanguageSwitcher /> */}
+      <LanguageSwitcher />
       <AppRouter />
     </div>
   </IonApp>

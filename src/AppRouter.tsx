@@ -33,9 +33,7 @@ const AppRouter: React.FC = () => {
 
   return (
     <IonReactRouter>
-     
       <Menu />
-      <FooterPage />
       <IonRouterOutlet id="main-content" className='custom-router-outlet mt-2rem'>
         <Route exact path="/splash">
           <SplashScreen />
@@ -67,6 +65,7 @@ const AppRouter: React.FC = () => {
           {token ? <NearbyTemples /> : <Redirect to="/login" />}
         </Route>
       </IonRouterOutlet>
+      {window.location.pathname !== '/login' && <FooterPage />} {/* Conditionally render FooterPage */}
     </IonReactRouter>
   );
 };

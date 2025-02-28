@@ -11,12 +11,17 @@ import {
   IonSpinner,
   IonButton,
   IonIcon,
+  IonButtons,
+  IonBackButton,
+  IonSkeletonText,
+  IonCard,
 } from '@ionic/react';
 import { locationOutline, homeOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './nearby.css';
-
+const MotionIonCard = motion(IonCard);
+const MotionDiv = motion.div;
 const NearbyTemples: React.FC = () => {
   const [temples, setTemples] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,10 +65,39 @@ const NearbyTemples: React.FC = () => {
 
   return (
     <IonPage>
+      {/* <IonHeader>
+        <IonToolbar className='profile-header'>
+             <span>  Near by Temples</span>
+        </IonToolbar>
+      </IonHeader> */}
       <IonContent>
-      <div className="wave-container">
-          <div className="wave"></div>
-        </div>
+               <div className="mobile-header">
+                  <div className="header-top">
+                    <MotionDiv
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="header-greeting"
+                    >
+                      <div>
+                        {isLoading ? (
+                          <IonSkeletonText animated style={{ width: '150px', height: '24px' }} />
+                        ) : (
+                          <h1 className="greeting-text">Nearby Temples</h1>
+                        )}
+                        {/* <p className="greeting-subtext">Welcome back</p> */}
+                      </div>
+                    </MotionDiv>
+                    
+                    <MotionDiv
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="header-icons"
+                    >
+                    </MotionDiv>
+                  </div>
+                </div>
         {isLoading ? (
           <div className="loading-container">
             <IonSpinner name="crescent" />

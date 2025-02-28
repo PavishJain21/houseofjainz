@@ -28,6 +28,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './profile-edit.css';
 import { refreshAccessToken } from '../../utils/tokenUtil';
+import authMiddleware from '../../middleware/authMiddleware';
 
 const ProfileEdit: React.FC = () => {
     const { t } = useTranslation();
@@ -64,7 +65,7 @@ const ProfileEdit: React.FC = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await fetch(' https://houseofjainz.com/api/user-edit/', {
+                const response = await authMiddleware('/user-edit/', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                     }
@@ -79,9 +80,6 @@ const ProfileEdit: React.FC = () => {
                         relationship: data.relationship_status,
                     });
                 } else {
-                    debugger;
-                    //refreshAccessToken();
-                    // fetchProfile();
                     console.error('Error fetching profile:', data);
                 }
             } catch (error) {
@@ -129,7 +127,7 @@ const ProfileEdit: React.FC = () => {
         }
 
         try {
-            const response = await fetch(' https://houseofjainz.com/api//api/user-edit/update/', {
+            const response = await authMiddleware('/user-edit/update/', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -168,11 +166,10 @@ const ProfileEdit: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar>
+                <IonToolbar className='profile-header'>
                     <IonButtons slot="start">
-                        <IonBackButton defaultHref="/profile" />
+                        <IonBackButton className='back-btn-profile' defaultHref="/profile" />
                     </IonButtons>
-                    <IonTitle>{t('profile.editProfile')}</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding light-theme">
@@ -182,24 +179,6 @@ const ProfileEdit: React.FC = () => {
               --ion-background-color: #ffffff;
               --ion-text-color: #000000;
             }
-
-            .input-item {
-              --border-radius: 10px;
-              --background: #f0f0f0;
-              margin: 10px 0;
-              transition: all 0.3s ease;
-            }
-
-            .input-item.active {
-              --background: #ffffff;
-              box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-              transform: translateY(-2px);
-            }
-
-            .active .item-icon {
-              transform: scale(1.2);
-            }
-
             @keyframes slideIn {
               from {
                 opacity: 0;
@@ -216,7 +195,7 @@ const ProfileEdit: React.FC = () => {
             }
 
             .save-button {
-              --background: #007bff;
+              --background:linear-gradient(45deg, var(--primary), var(--secondary))
               --color: #ffffff;
               margin-top: 20px;
               width: 100%;
@@ -236,9 +215,9 @@ const ProfileEdit: React.FC = () => {
                 </style>
                 <IonCard>
                     <IonCardHeader>
-                        <IonCardTitle>{t('profile.editProfile')}</IonCardTitle>
+                        {/* <IonCardTitle>{t('profile.editProfile')}</IonCardTitle> */}
                     </IonCardHeader>
-                    <IonCardContent>
+                    <IonCardContent className='card-content-profile'>
                         <form onSubmit={handleSubmit} className="list-container">
                             <IonList>
                                 {[

@@ -1,6 +1,7 @@
 {
     "profile": {
         "fullName": "Full Name",
+        "editProfile": "Update Profile Details",
         "email": "Email",
         "phoneNumber": "Phone Number",
         "relationshipStatus": "Relationship Status",

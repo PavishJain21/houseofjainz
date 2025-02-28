@@ -1,3 +1,13 @@
 .profile-header {
- margin-top: 3rem;
+ margin-top: 1rem;
+}
+
+.back-btn-profile {
+    width: 85px;
+    justify-content: center;
+    display: flex;
+}
+
+.card-content-profile {
+    margin-top: 1rem;
 }

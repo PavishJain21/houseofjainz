@@ -53,6 +53,7 @@ import {
 } from 'framer-motion';
 import FooterPage from '../footer/footer';
 import './feed.css';
+import authMiddleware from '../../middleware/authMiddleware';
 
 const FeedPage = () => {
   const user = localStorage.getItem('userDetails');
@@ -88,7 +89,11 @@ const FeedPage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('https://houseofjainz.com/api/posts/');
+        const response = await authMiddleware('/posts/', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+          }
+        });
         const data = await response.json();
         
         // Add a small delay for each post to create a staggered animation effect
@@ -215,7 +220,7 @@ const FeedPage = () => {
     }, 200);
 
     try {
-      const response = await fetch('https://houseofjainz.com/api/posts/create/', {
+      const response = await authMiddleware('/posts/create/', {
         method: 'POST',
         body: formData,
       });
