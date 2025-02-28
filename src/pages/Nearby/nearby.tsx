@@ -16,18 +16,24 @@ import {
   IonSkeletonText,
   IonCard,
 } from '@ionic/react';
+import { Geolocation } from '@capacitor/geolocation';
 import { locationOutline, homeOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './nearby.css';
 const MotionIonCard = motion(IonCard);
 const MotionDiv = motion.div;
+
+
+
 const NearbyTemples: React.FC = () => {
   const [temples, setTemples] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
 
-  useEffect(() => {
+
+ useEffect(() => {
+ 
     const fetchTemples = async (latitude: number, longitude: number) => {
       try {
         const response = await fetch(`https://api.olamaps.io/places/v1/nearbysearch?layers=venue&types=hindu_temple&location=${latitude},${longitude}&api_key=kQy4FdWEghifK6z5mK9DT66vO2NEO5awKDPKcGhx`, {
@@ -60,8 +66,18 @@ const NearbyTemples: React.FC = () => {
       );
     };
 
+ const getLocation = async () =>   {
+     const position = await Geolocation.getCurrentPosition();
+      const { latitude, longitude } = position.coords;
+    fetchTemples(latitude,longitude)
+    }
+    getLocation();
     getCurrentLocation();
   }, []);
+
+  const [loc, setLoc] = useState(null);
+
+
 
   return (
     <IonPage>
