@@ -33,7 +33,7 @@ const AppRouter: React.FC = () => {
 
   return (
     <IonReactRouter>
-      <Header />
+     
       <Menu />
       <FooterPage />
       <IonRouterOutlet id="main-content" className='custom-router-outlet mt-2rem'>

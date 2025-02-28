@@ -1,16 +1,10 @@
 import {
   IonContent,
-  IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
   IonInput,
   IonButton,
   IonIcon,
   IonItem,
-  IonLabel,
-  IonCard,
-  IonCardContent,
   IonText,
   IonGrid,
   IonRow,
@@ -19,36 +13,60 @@ import {
   useIonToast,
   IonBackButton,
   IonButtons,
+  IonHeader,
+  IonToolbar,
 } from '@ionic/react';
-import { phonePortraitOutline, chevronForwardOutline } from 'ionicons/icons';
-import { useState, useRef } from 'react';
+import { 
+  phonePortraitOutline, 
+  chevronForwardOutline, 
+  arrowBackOutline, 
+  lockClosedOutline 
+} from 'ionicons/icons';
+import { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './login.css';
-
-const login: React.FC = () => {
+import logo from '../assets/hoj.svg'; 
+const Login: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [step, setStep] = useState(1);
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
+  const [resendDisabled, setResendDisabled] = useState(true);
+  const [countdown, setCountdown] = useState(30);
   const [present] = useIonToast();
-  const otpRefs = [useRef<HTMLIonInputElement>(null), useRef<HTMLIonInputElement>(null), 
-                   useRef<HTMLIonInputElement>(null), useRef<HTMLIonInputElement>(null),
-                   useRef<HTMLIonInputElement>(null), useRef<HTMLIonInputElement>(null)];
+  const otpRefs = [
+    useRef<HTMLIonInputElement>(null), useRef<HTMLIonInputElement>(null), 
+    useRef<HTMLIonInputElement>(null), useRef<HTMLIonInputElement>(null),
+    useRef<HTMLIonInputElement>(null), useRef<HTMLIonInputElement>(null)
+  ];
   const history = useHistory();
+
+  useEffect(() => {
+    let timer: any;
+    if (step === 2 && resendDisabled && countdown > 0) {
+      timer = setTimeout(() => {
+        setCountdown(countdown - 1);
+      }, 1000);
+    } else if (countdown === 0) {
+      setResendDisabled(false);
+    }
+    return () => clearTimeout(timer);
+  }, [countdown, resendDisabled, step]);
 
   const handlePhoneSubmit = async () => {
     if (phoneNumber.length !== 10) {
       present({
         message: 'Please enter a valid 10-digit phone number',
         duration: 2000,
-        color: 'danger'
+        color: 'danger',
+        position: 'top'
       });
       return;
     }
     setLoading(true);
     try {
-      const response = await fetch('http://13.201.104.120:8000/api/send-otp/', {
+      const response = await fetch('https://houseofjainz.com/api/send-otp/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,11 +77,14 @@ const login: React.FC = () => {
       setLoading(false);
       if (response.ok) {
         setStep(2);
+        setCountdown(30);
+        setResendDisabled(true);
       } else {
         present({
           message: data.error || 'Failed to send OTP',
           duration: 2000,
-          color: 'danger'
+          color: 'danger',
+          position: 'top'
         });
       }
     } catch (error) {
@@ -71,9 +92,16 @@ const login: React.FC = () => {
       present({
         message: 'An error occurred. Please try again.',
         duration: 2000,
-        color: 'danger'
+        color: 'danger',
+        position: 'top'
       });
     }
+  };
+
+  const handleResendOtp = () => {
+    setResendDisabled(true);
+    setCountdown(30);
+    handlePhoneSubmit();
   };
 
   const handleOtpChange = (index: number, value: string) => {
@@ -86,6 +114,28 @@ const login: React.FC = () => {
       if (value && index < 5) {
         otpRefs[index + 1].current?.setFocus();
       }
+      // Auto-verify when all digits are entered
+      if (value && index === 5 && newOtp.every(digit => digit)) {
+        verifyOtp();
+      }
+    }
+  };
+
+  const handleOtpKeyDown = (index: number, e: React.KeyboardEvent) => {
+    // Handle backspace to go to previous input
+    if (e.key === 'Backspace' && index > 0 && !otp[index]) {
+      otpRefs[index - 1].current?.setFocus();
+    }
+  };
+
+  const handlePaste = (e: React.ClipboardEvent) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+    if (pastedData.length === 6) {
+      const newOtp = pastedData.split('');
+      setOtp(newOtp);
+      // Focus on the last input after pasting
+      otpRefs[5].current?.setFocus();
     }
   };
 
@@ -93,14 +143,15 @@ const login: React.FC = () => {
     if (otp.join('').length !== 6) {
       present({
         message: 'Please enter a valid OTP',
-        duration:  2000,
-        color: 'danger'
+        duration: 2000,
+        color: 'danger',
+        position: 'top'
       });
       return;
     }
     setLoading(true);
     try {
-      const response = await fetch('http://13.201.104.120:8000/api/verify-otp/', {
+      const response = await fetch('https://houseofjainz.com/api/verify-otp/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,20 +164,22 @@ const login: React.FC = () => {
         present({
           message: 'Successfully authenticated!',
           duration: 2000,
-          color: 'success'
+          color: 'success',
+          position: 'top'
         });
         localStorage.setItem('authToken', data.access);
         localStorage.setItem('refreshToken', data.refresh);
         if (data.IsNewUser) {
-          history.push('/useredit'); // Redirect to user edit page for new users
+          history.push('/useredit');
         } else {
-          history.push('/dashboard'); // Redirect to dashboard for existing users
+          history.push('/dashboard');
         }
       } else {
         present({
           message: data.error || 'Invalid OTP',
           duration: 2000,
-          color: 'danger'
+          color: 'danger',
+          position: 'top'
         });
       }
     } catch (error) {
@@ -134,54 +187,74 @@ const login: React.FC = () => {
       present({
         message: 'An error occurred. Please try again.',
         duration: 2000,
-        color: 'danger'
+        color: 'danger',
+        position: 'top'
       });
     }
   };
 
   return (
     <IonPage>
-      {/* <IonHeader>
+      <IonHeader className="ion-no-border transparent-header">
         <IonToolbar>
           {step === 2 && (
             <IonButtons slot="start">
-              <IonBackButton defaultHref="#" onClick={() => setStep(1)} />
+              <IonBackButton 
+                defaultHref="#" 
+                icon={arrowBackOutline} 
+                text="" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setStep(1);
+                }} 
+              />
             </IonButtons>
           )}
         </IonToolbar>
-      </IonHeader> */}
+      </IonHeader>
 
-      <IonContent className="">
-      <div className="wave-container">
+      <IonContent fullscreen className="auth-content">
+        {/* <div className="wave-container">
           <div className="wave"></div>
-        </div>
-        <IonGrid>
+        </div> */}
+        
+        <IonGrid className="ion-padding">
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeMd="8" sizeLg="6">
-              <IonCard className="auth-card">
-                <IonCardContent>
-                  <div className="ion-text-center ion-padding">
-                    <h2 className="auth-title">
+              <div className="auth-logo-container">
+                <div className="auth-logo">
+                  {/* Your app logo goes here */}
+                  <div className="logo-placeholder">
+                    <img src={logo} alt="App Logo" />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="auth-card">
+                <div className="auth-card-content">
+                  <div className="ion-text-center ion-padding-bottom">
+                    <h1 className="auth-title">
                       {isLogin ? "Welcome Back" : "Create Account"}
-                    </h2>
-                    <IonText color="medium">
+                    </h1>
+                    <IonText color="medium" className="auth-subtitle">
                       {step === 1 
                         ? "Enter your mobile number to continue" 
-                        : "Enter the OTP sent to your phone"}
+                        : `Enter the 6-digit OTP sent to +91 ${phoneNumber}`}
                     </IonText>
                   </div>
 
                   {step === 1 ? (
-                    <div className="ion-padding">
-                      <IonItem className="phone-input">
-                        <IonIcon icon={phonePortraitOutline} slot="start" />
+                    <div className="phone-input-container">
+                      <div className="country-code">+91</div>
+                      <IonItem lines="none" className="phone-input-item">
+                        <IonIcon icon={phonePortraitOutline} slot="start" className="input-icon" />
                         <IonInput
                           type="tel"
                           placeholder="Mobile Number"
                           value={phoneNumber}
                           onIonInput={(e) => setPhoneNumber(e.detail.value?.replace(/\D/g, '').slice(0, 10) || '')}
                           maxlength={10}
-                          className="ion-padding-start"
+                          className="phone-number-input"
                         />
                       </IonItem>
 
@@ -200,19 +273,35 @@ const login: React.FC = () => {
                       </IonButton>
                     </div>
                   ) : (
-                    <div className="ion-padding">
-                      <div className="otp-container">
+                    <div className="otp-section">
+                      <div className="otp-container" onPaste={handlePaste}>
                         {otp.map((digit, index) => (
                           <IonInput
                             key={index}
                             ref={otpRefs[index]}
-                            type="text"
+                            type="tel"
+                            inputmode="numeric"
                             maxlength={1}
                             value={digit}
                             onIonInput={(e) => handleOtpChange(index, e.detail.value || '')}
+                            onKeyDown={(e) => handleOtpKeyDown(index, e)}
                             className="otp-input"
                           />
                         ))}
+                      </div>
+
+                      <div className="resend-container">
+                        <IonButton 
+                          fill="clear" 
+                          size="small" 
+                          className="resend-button"
+                          disabled={resendDisabled}
+                          onClick={handleResendOtp}
+                        >
+                          {resendDisabled 
+                            ? `Resend OTP in ${countdown}s` 
+                            : 'Resend OTP'}
+                        </IonButton>
                       </div>
 
                       <IonButton
@@ -221,14 +310,20 @@ const login: React.FC = () => {
                         onClick={verifyOtp}
                         disabled={otp.join('').length !== 6 || loading}
                       >
-                        {loading ? <IonSpinner name="crescent" /> : 'Verify OTP'}
+                        {loading ? <IonSpinner name="crescent" /> : (
+                          <>
+                            Verify OTP
+                            <IonIcon slot="end" icon={lockClosedOutline} />
+                          </>
+                        )}
                       </IonButton>
                     </div>
                   )}
 
-                  <div className="ion-text-center ion-padding-top">
+                  <div className="auth-toggle">
                     <IonButton
                       fill="clear"
+                      className="toggle-button"
                       onClick={() => setIsLogin(!isLogin)}
                     >
                       {isLogin 
@@ -236,8 +331,8 @@ const login: React.FC = () => {
                         : "Already have an account? Login"}
                     </IonButton>
                   </div>
-                </IonCardContent>
-              </IonCard>
+                </div>
+              </div>
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -246,4 +341,4 @@ const login: React.FC = () => {
   );
 };
 
-export default login;
+export default Login;

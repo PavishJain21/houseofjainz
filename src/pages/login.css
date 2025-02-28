@@ -1,160 +1,139 @@
-/* .login-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .lotus-container {
-    margin-bottom: 2rem;
-  }
-  
-  .auth-card {
-    max-width: 400px;
-    width: 90%;
-    margin: 1rem;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    background: white;
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .auth-card h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0;
-    background: linear-gradient(45deg, #FF725E, #FF9B8C);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .welcome-text {
-    color: #666;
-    margin-top: 0.5rem;
-    font-size: 1rem;
-  }
-  
-  .animate-item {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  
-  ion-item {
-    --padding-start: 0;
-    margin-bottom: 0.5rem;
-    border-radius: 8px;
-    --highlight-height: 2px;
-    --highlight-color: #FF725E;
-  }
-  
-  .forgot-password {
-    text-align: right;
-    margin-top: 0.5rem;
-  }
-  
-  .login-button {
-    --background: #FF725E;
-    --background-hover: #ff8471;
-    margin-top: 1rem;
-    height: 48px;
-  }
-  
-  .social-login {
-    margin-top: 2rem;
-  }
-  
-  .divider {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 1rem 0;
-  }
-  
-  .divider::before,
-  .divider::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .divider span {
-    padding: 0 1rem;
-    color: #666;
-    font-size: 0.9rem;
-  }
-  
-  .social-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .social-button {
-    --border-color: #ddd;
-    --border-width: 1px;
-    --border-style: solid;
-    --padding-start: 2rem;
-    --padding-end: 2rem;
-  }
-  
-  .signup-prompt {
-    text-align: center;
-    margin-top: 2rem;
-    color: #666;
-  }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .auth-card,
-    .animate-item,
-    .lotus-icon {
-      animation: none;
-      opacity: 1;
-    }
-  }
-  
-  ion-item.item-has-focus {
-    transition: transform 0.2s ease;
-    transform: scale(1.02);
-  } */
+/* login.css */
 
-  
-  /* MobileAuth.css */
-.auth-content {
-  --background: linear-gradient(45deg, var(--ion-color-primary), var(--ion-color-secondary));
+/* Global styles */
+:root {
+  --primary-color: #6c63ff;
+  --secondary-color: #f5f5f5;
+  --text-color: #333333;
+  --text-secondary: #7b7b7b;
+  --success-color: #4caf50;
+  --danger-color: #f44336;
+  --card-bg: white;
+  --input-bg: #f9f9f9;
+  --border-radius: 12px;
 }
 
-.auth-card {
-  margin: 2rem;
-  border-radius: 16px;
+/* Wave animation background */
+.wave-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background: linear-gradient(45deg, var(--primary-color), #8c65ff); */
+  border-radius: 0 0 50% 50% / 0 0 25% 25%;
+}
+
+/* Auth content styles */
+.auth-content {
+  --background: transparent;
+}
+
+.transparent-header {
+  --background: transparent;
+}
+
+.auth-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.auth-logo {
+  width: 117px;
+  height: 117px;
+  display: flex;
+  border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.auth-title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 8px;
+.logo-placeholder {
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 14px;
+  width: 120px;
+  height: 80px;
 }
 
-.phone-input {
-  --border-radius: 12px;
-  --border-width: 2px;
-  --border-color: var(--ion-color-medium);
+.auth-card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 24px;
   margin-bottom: 24px;
 }
 
-.phone-input.item-has-focus {
-  --border-color: var(--ion-color-primary);
+.auth-card-content {
+  padding: 16px 8px;
 }
 
-.submit-button {
+.auth-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 8px;
+}
+
+.auth-subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 24px;
+}
+
+/* Phone input styles */
+.phone-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.phone-input-item {
+  --background: var(--input-bg);
   --border-radius: 12px;
-  margin-top: 16px;
-  height: 48px;
-  font-weight: 600;
-  --box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.3);
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --min-height: 52px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.input-icon {
+  color: var(--primary-color);
+  margin-right: 12px;
+}
+
+.phone-number-input {
+  font-size: 16px;
+}
+
+.country-code {
+  position: absolute;
+  left: 42px;
+  top: 16px;
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+/* OTP input styles */
+.otp-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .otp-container {
@@ -164,39 +143,55 @@
 }
 
 .otp-input {
-  width: 60px;
-  height: 60px;
+  --background: var(--input-bg);
+  --border-radius: 12px;
   --padding-start: 0;
   --padding-end: 0;
-  border: 2px solid var(--ion-color-medium);
-  border-radius: 12px;
+  width: 14%;
+  height: 54px;
+  font-size: 20px;
+  font-weight: bold;
   text-align: center;
-  font-size: 24px;
+  --placeholder-color: var(--text-secondary);
+}
+
+.resend-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.resend-button {
+  --color: var(--primary-color);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Button styles */
+.submit-button {
+  --background: var(--primary-color);
+  --background-activated: var(--primary-color);
+  --background-focused: var(--primary-color);
+  --background-hover: #5a52e0;
+  --color: white;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+  margin-top: 16px;
+  height: 52px;
   font-weight: 600;
+  text-transform: none;
+  font-size: 16px;
 }
 
-.otp-input.ion-focused {
-  border-color: var(--ion-color-primary);
+.auth-toggle {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
 }
 
-/* Animation classes */
-.auth-card {
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Loading spinner animation */
-.submit-button ion-spinner {
-  width: 24px;
-  height: 24px;
+.toggle-button {
+  --color: var(--primary-color);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
 }

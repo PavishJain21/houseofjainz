@@ -21,7 +21,7 @@ export const refreshAccessToken = async () => {
   if (!refreshToken) return null;
 
   try {
-    const response = await fetch('http://13.201.104.120:8000/api/refresh-token/', {
+    const response = await fetch(' https://houseofjainz.com/api//api/refresh-token/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

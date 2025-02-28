@@ -9,11 +9,12 @@
   --background: linear-gradient(45deg, var(--primary), var(--secondary)) !important;
   margin-bottom: 8px;
   border-radius: 8px;
+ /* Ensure text color is white */
 }
 
 .contact-icon {
   font-size: 24px;
-  color: var(--ion-color-primary);
+  /* Ensure icon color is white */
 }
 
 .contact-details {
@@ -25,9 +26,169 @@
 
 .contact-chip {
   display: flex;
-  align-items: center;
+  align-items: center;/* Mobile Contact List Styles */
+  .contact-avatar {
+    --border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    border-radius: 50%;
+  }
+  
+  .contact-item {
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+  }
+  
+  .contact-name {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .contact-details {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--ion-color-medium);
+    margin-top: 2px;
+  }
+  
+  .detail-icon {
+    font-size: 14px;
+    margin-right: 6px;
+  }
+  
+  .filter-toolbar {
+    --background: var(--ion-color-light);
+    --min-height: auto;
+    padding: 4px 0;
+  }
+  
+  .filter-toggle {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --min-height: 36px;
+  }
+  
+  .filter-toggle ion-label {
+    font-size: 14px;
+  }
+  
+  .location-header {
+    --background: var(--ion-color-light);
+    --padding-start: 16px;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+  
+  .location-header ion-icon {
+    margin-right: 8px;
+  }
+  
+  .transition-transform {
+    transition: transform 0.3s ease;
+  }
+  
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+  
+  .mobile-searchbar {
+    --box-shadow: none;
+    --background: var(--ion-background-color);
+    --border-radius: 8px;
+    padding: 0;
+  }
+  
+  .contact-list {
+    margin-bottom: 16px;
+  }
+  
+  .skeleton-card {
+    margin: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .skeleton-content {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+  }
+  
+  .skeleton-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.1);
+    margin-right: 12px;
+  }
+  
+  .skeleton-details {
+    flex: 1;
+  }
+  
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+  }
+  
+  .empty-icon {
+    font-size: 48px;
+    color: var(--ion-color-medium);
+    margin-bottom: 16px;
+  }
+  
+  .stats-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background-color: var(--ion-color-light);
+    font-size: 14px;
+  }
+  
+  /* Ensure animations are smooth */
+  ion-item-sliding {
+    transform: translateZ(0);
+  }
+  
+  /* Add a subtle wave effect to the top */
+  .wave-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    overflow: hidden;
+    z-index: -1;
+  }
+  
+  .wave {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--ion-color-primary-tint), transparent);
+    opacity: 0.1;
+    border-radius: 0 0 50% 50%;
+  }
   padding: 4px 8px;
   font-size: 14px;
+ /* Ensure chip text color is white */
 }
 
 .contact-info {
@@ -49,10 +210,10 @@
   }
 }
 
-ion-chip {
+/* ion-chip {
   --background: var(--ion-color-primary-tint);
-  --color: var(--ion-color-primary);
-}
+  --color: white; 
+} */
 
 ion-chip ion-icon {
   margin-right: 4px;
@@ -77,7 +238,6 @@ ion-item-sliding {
 }
 
 ion-item {
-  --background: linear-gradient(45deg, var(--primary), var(--secondary)) !important;
   --padding-start: 16px;
   --padding-end: 16px;
   --padding-top: 12px;
@@ -90,4 +250,30 @@ ion-item {
   justify-content: space-between;
   align-items: center;
   color: white;
+}
+
+.wave-container {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  width: 200%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: wave 6s infinite linear;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }

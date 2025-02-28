@@ -34,7 +34,7 @@ const Home = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch('http://13.201.104.120:8000/api/get-logged-in-user/', {
+        const response = await fetch(' https://houseofjainz.com/api//api/get-logged-in-user/', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
           }

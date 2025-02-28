@@ -18,6 +18,10 @@ import {
     IonIcon,
     IonRippleEffect,
     createAnimation,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
 } from '@ionic/react';
 import { checkmark, arrowBack, personCircle, mail, call, school, heart } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
@@ -41,26 +45,26 @@ const ProfileEdit: React.FC = () => {
     const history = useHistory();
 
     const relationshipOptions = [
-        t('profile.relationship.single'),
-        t('profile.relationship.inARelationship'),
-        t('profile.relationship.married'),
-        t('profile.relationship.divorced'),
-        t('profile.relationship.widowed'),
-        t('profile.relationship.preferNotToSay'),
+        'relationship.single',
+        'relationship.inARelationship',
+       'relationship.married',
+        'relationship.divorced',
+        'relationship.widowed',
+        'relationship.preferNotToSay'
     ];
 
     const educationOptions = [
-        t('profile.education.highSchool'),
-        t('profile.education.bachelorsDegree'),
-        t('profile.education.mastersDegree'),
-        t('profile.education.phd'),
-        t('profile.education.other'),
+        'education.highSchool',
+        'education.bachelorsDegree',
+        'education.mastersDegree',
+        'education.phd',
+        'education.other',
     ];
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await fetch('http://13.201.104.120:8000/api/user-edit/', {
+                const response = await fetch(' https://houseofjainz.com/api/user-edit/', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                     }
@@ -76,8 +80,8 @@ const ProfileEdit: React.FC = () => {
                     });
                 } else {
                     debugger;
-                    refreshAccessToken();
-                    fetchProfile();
+                    //refreshAccessToken();
+                    // fetchProfile();
                     console.error('Error fetching profile:', data);
                 }
             } catch (error) {
@@ -86,7 +90,7 @@ const ProfileEdit: React.FC = () => {
         };
 
         fetchProfile();
-    }, []);
+    }, [t]);
 
     const handleFocus = (field: string) => {
         setActiveInput(field);
@@ -125,7 +129,7 @@ const ProfileEdit: React.FC = () => {
         }
 
         try {
-            const response = await fetch('http://13.201.104.120:8000/api/user-edit/update/', {
+            const response = await fetch(' https://houseofjainz.com/api//api/user-edit/update/', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -163,6 +167,14 @@ const ProfileEdit: React.FC = () => {
 
     return (
         <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonBackButton defaultHref="/profile" />
+                    </IonButtons>
+                    <IonTitle>{t('profile.editProfile')}</IonTitle>
+                </IonToolbar>
+            </IonHeader>
             <IonContent className="ion-padding light-theme">
                 <style>
                     {`
@@ -206,6 +218,14 @@ const ProfileEdit: React.FC = () => {
             .save-button {
               --background: #007bff;
               --color: #ffffff;
+              margin-top: 20px;
+              width: 100%;
+              border-radius: 10px;
+              transition: transform 0.3s ease;
+            }
+
+            .save-button:hover {
+              transform: scale(1.05);
             }
 
             .success-toast {
@@ -214,65 +234,69 @@ const ProfileEdit: React.FC = () => {
             }
           `}
                 </style>
-            
-                <form onSubmit={handleSubmit} className="list-container">
-                    <IonList>
-                        {[
-                            { field: 'fullName', label: t('profile.fullName'), type: 'text', editable: true },
-                            { field: 'email', label: t('profile.email'), type: 'email', editable: true },
-                            { field: 'phone', label: t('profile.phoneNumber'), type: 'tel', editable: true },
-                            { field: 'education', label: t('profile.education'), type: 'select', options: educationOptions, editable: true },
-                            { field: 'relationship', label: t('profile.relationshipStatus'), type: 'select', options: relationshipOptions, editable: true }
-                        ].map(({ field, label, type, options, editable }) => (
-                            <IonItem
-                                key={field}
-                                className={`input-item ${activeInput === field ? 'active' : ''}`}
-                                id={`${field}-container`}
-                            >
-                                <IonIcon
-                                    icon={getIcon(field)}
-                                    slot="start"
-                                    className="item-icon"
-                                />
-                                <IonLabel position="stacked">{label}</IonLabel>
-                                {type === 'select' ? (
-                                    <IonSelect
-                                        value={profile[field as keyof typeof profile]}
-                                        onIonChange={e => handleChange(field, e.detail.value)}
-                                        onIonFocus={() => handleFocus(field)}
-                                        onIonBlur={() => setActiveInput('')}
-                                        interface="action-sheet"
-                                        placeholder={t(`profile.select${label}`)}
-                                        disabled={!editable}
+                <IonCard>
+                    <IonCardHeader>
+                        <IonCardTitle>{t('profile.editProfile')}</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent>
+                        <form onSubmit={handleSubmit} className="list-container">
+                            <IonList>
+                                {[
+                                    { field: 'fullName', label: t('profile.fullName'), type: 'text', editable: true },
+                                    { field: 'email', label: t('profile.email'), type: 'email', editable: true },
+                                    { field: 'phone', label: t('profile.phoneNumber'), type: 'tel', editable: true },
+                                    { field: 'education', label: t('profile.enterEducation'), type: 'select', options: educationOptions, editable: true },
+                                    { field: 'relationship', label: "Select Relationship", type: 'select', options: relationshipOptions, editable: true }
+                                ].map(({ field, label, type, options, editable }) => (
+                                    <IonItem
+                                        key={field}
+                                        className={`input-item ${activeInput === field ? 'active' : ''}`}
+                                        id={`${field}-container`}
                                     >
-                                        {options?.map(option => (
-                                            <IonSelectOption key={option} value={option}>
-                                                {option}
-                                            </IonSelectOption>
-                                        ))}
-                                    </IonSelect>
-                                ) : (
-                                    <IonInput
-                                        type={type}
-                                        value={profile[field as keyof typeof profile]}
-                                        onIonChange={e => handleChange(field, e.detail.value!)}
-                                        onIonFocus={() => handleFocus(field)}
-                                        onIonBlur={() => setActiveInput('')}
-                                        placeholder={t(`profile.enter${label}`)}
-                                        clearInput
-                                        disabled={!editable}
-                                    />
-                                )}
-                                <IonRippleEffect />
-                            </IonItem>
-                        ))}
-                    </IonList>
-                </form>
-                <IonButtons>
-                    <IonButton fill="clear" onClick={handleSubmit} expand="block" size="small">
-                        {t('profile.saveChanges')}
-                    </IonButton>
-                </IonButtons>
+                                        <IonIcon
+                                            icon={getIcon(field)}
+                                            slot="start"
+                                            className="item-icon"
+                                        />
+                                        <IonLabel position="stacked">{label}</IonLabel>
+                                        {type === 'select' ? (
+                                            <IonSelect
+                                                value={profile[field as keyof typeof profile]}
+                                                onIonChange={e => handleChange(field, e.detail.value)}
+                                                onIonFocus={() => handleFocus(field)}
+                                                onIonBlur={() => setActiveInput('')}
+                                                interface="action-sheet"
+                                                placeholder={t(`select ${field.charAt(0).toUpperCase() + field.slice(1)}`)}
+                                                disabled={!editable}
+                                            > 
+                                                {options?.map(option => (
+                                                    <IonSelectOption key={option} value={option}>
+                                                        {t(option)}
+                                                    </IonSelectOption>
+                                                ))}
+                                            </IonSelect>
+                                        ) : (
+                                            <IonInput
+                                                type={type}
+                                                value={profile[field as keyof typeof profile]}
+                                                onIonChange={e => handleChange(field, e.detail.value!)}
+                                                onIonFocus={() => handleFocus(field)}
+                                                onIonBlur={() => setActiveInput('')}
+                                                placeholder={t(`profile.enter${field.charAt(0).toUpperCase() + field.slice(1)}`)}
+                                                clearInput
+                                                disabled={!editable}
+                                            />
+                                        )}
+                                        <IonRippleEffect />
+                                    </IonItem>
+                                ))}
+                            </IonList>
+                            <IonButton type="submit" className="save-button" expand="block">
+                                {t('profile.saveChanges')}
+                            </IonButton>
+                        </form>
+                    </IonCardContent>
+                </IonCard>
                 <IonToast
                     isOpen={showToast}
                     onDidDismiss={() => setShowToast(false)}
